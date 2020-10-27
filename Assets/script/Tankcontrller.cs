@@ -5,9 +5,12 @@ public class Tankcontrller : MonoSingleton<Tankcontrller> {
 	private float MoveSpeed;
 	private float vertical;
 	private float horizontal;
-	protected Joystick joystick;
-	protected FixedJoyController joybutton;
+	private Joystick joystick;
+	private FixedJoyController joybutton;
 	Rigidbody rigidbody;
+	[SerializeField]
+	private  float rotateSpeed;
+
 	private void Awake(){
 		joystick=FindObjectOfType<Joystick>();
 		joybutton=FindObjectOfType<FixedJoyController>();
@@ -16,7 +19,7 @@ public class Tankcontrller : MonoSingleton<Tankcontrller> {
 	{
 		//joystick 
 		rigidbody=GetComponent<Rigidbody>();
-		rigidbody.velocity= new Vector3(joystick.Horizontal*10f,rigidbody.velocity.y,joystick.Vertical*10f);
+		rigidbody.velocity= new Vector3(joystick.Horizontal*5f,rigidbody.velocity.y,joystick.Vertical*5f);
 	}
 	void Update ()
 	{
@@ -30,9 +33,10 @@ public class Tankcontrller : MonoSingleton<Tankcontrller> {
 	//Tank movement 
 	private void TankMovement()
 	{
-	vertical=Input.GetAxis("VerticalUI");
-	horizontal=Input.GetAxis("HorizontalUI");
-	transform.Translate(MoveSpeed*horizontal*Time.deltaTime,0f,MoveSpeed*vertical*Time.deltaTime);
+		vertical=Input.GetAxis("VerticalUI");
+		horizontal=Input.GetAxis("HorizontalUI");
+		transform.Translate(0f,0f,MoveSpeed*vertical*Time.deltaTime);
+		transform.Rotate(0,Input.GetAxis("HorizontalUI")*rotateSpeed*Time.deltaTime,0);
 
 	 }
 	
