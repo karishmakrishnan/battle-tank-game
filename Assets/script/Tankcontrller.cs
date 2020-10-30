@@ -7,23 +7,39 @@ public class Tankcontrller : MonoSingleton<Tankcontrller> {
 	private float horizontal;
 	private Joystick joystick;
 	private FixedJoyController joybutton;
-	Rigidbody rigidbody;
+	private Rigidbody rigidbody;
 	[SerializeField]
 	private  float rotateSpeed;
-
+	[SerializeField]
+	private AudioSource tankMovementAudio;
+	[SerializeField]
+	private AudioClip tankIdleAudio;
+	[SerializeField]
+	private AudioClip tankDrivingAudio;
+	[SerializeField]
+	private float audioPitchRange=0.2f;
+	private float audioOriginalPitch;
 	private void Awake(){
 		joystick=FindObjectOfType<Joystick>();
 		joybutton=FindObjectOfType<FixedJoyController>();
+		rigidbody=GetComponent<Rigidbody>();
 	}
 	private void FixedUpdate()
 	{
-		//joystick 
-		rigidbody=GetComponent<Rigidbody>();
-		rigidbody.velocity= new Vector3(joystick.Horizontal*5f,rigidbody.velocity.y,joystick.Vertical*5f);
+		JoyStickMove();
+		TankMovement();
+		TankRotate();
 	}
 	void Update ()
 	{
+		vertical=Input.GetAxis("VerticalUI");
+		horizontal=Input.GetAxis("HorizontalUI");
 		TankMovement();
+		EngineAudio();
+	}
+	private void Start()
+	{
+		audioOriginalPitch=tankMovementAudio.pitch;
 	}
 	//collision detection of tank with other game object
 	// void OnCollisionEnter(Collision collision)
@@ -33,11 +49,40 @@ public class Tankcontrller : MonoSingleton<Tankcontrller> {
 	//Tank movement 
 	private void TankMovement()
 	{
-		vertical=Input.GetAxis("VerticalUI");
-		horizontal=Input.GetAxis("HorizontalUI");
-		transform.Translate(0f,0f,MoveSpeed*vertical*Time.deltaTime);
-		transform.Rotate(0,Input.GetAxis("HorizontalUI")*rotateSpeed*Time.deltaTime,0);
-
-	 }
+		Vector3 moveTank=transform.forward*vertical*MoveSpeed*Time.deltaTime;
+		rigidbody.MovePosition(rigidbody.position + moveTank);
+	}
+	private void TankRotate()
+	{
+		float rotate = horizontal*rotateSpeed*Time.deltaTime;
+		Quaternion rotateTank=Quaternion.Euler(0f,rotate,0f);
+		rigidbody.MoveRotation(rigidbody.rotation*rotateTank);
+	}
+	private void EngineAudio()
+	{
+		if(Mathf.Abs(vertical)<0.1f && Mathf.Abs(vertical)<0.1f)
+		{
+			if(tankMovementAudio.clip == tankDrivingAudio)
+			{
+				tankMovementAudio.clip = tankIdleAudio;
+				tankMovementAudio.pitch=Random.Range(audioOriginalPitch-audioPitchRange,audioOriginalPitch+audioPitchRange);
+				tankMovementAudio.Play();
+			}
+		}
+		else
+		{
+				if(tankMovementAudio.clip == tankIdleAudio)
+			{
+				tankMovementAudio.clip = tankDrivingAudio;
+				tankMovementAudio.pitch=Random.Range(audioOriginalPitch-audioPitchRange,audioOriginalPitch+audioPitchRange);
+				tankMovementAudio.Play();
+			}
+		}
+	}
+	//joystick 
+	private void JoyStickMove()
+	{
+		rigidbody.velocity= new Vector3(joystick.Horizontal*5f,rigidbody.velocity.y,joystick.Vertical*5f);
+	}
 	
 }
