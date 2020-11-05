@@ -4,10 +4,9 @@ public class EnemyController : MonoBehaviour
 {
     [SerializeField]
     private TankEnemyScriptableObject EnemyTankData;
-    void Start()
+    private void Update()
     {
         
     }
-
 
 }

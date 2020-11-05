@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 
 [CreateAssetMenu(fileName="Enemy Data",menuName="Enemy Data")]
 public class TankEnemyScriptableObject : ScriptableObject
@@ -9,9 +10,9 @@ public class TankEnemyScriptableObject : ScriptableObject
     private float enemyDamageTaken;
     [SerializeField]
     private float payRollSpeed;
-
-
+  
     public float EnemyMaxHealth{get{return enemyMaxHealth;}}
     public float EnemyDamageTaken{get{return enemyDamageTaken;}}
     public float PayRollSpeed{get{return payRollSpeed;}}
+ 
 }
