@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 
-public class Tankcontrller : MonoSingleton<Tankcontrller> {	
+public class Tankcontrller : MonoSingleton<Tankcontrller>
+ {	
 	[SerializeField]
 	private float MoveSpeed;
 	private float vertical;
@@ -19,7 +20,8 @@ public class Tankcontrller : MonoSingleton<Tankcontrller> {
 	[SerializeField]
 	private float audioPitchRange=0.2f;
 	private float audioOriginalPitch;
-	private void Awake(){
+	private void Awake()
+	{
 		joystick=FindObjectOfType<Joystick>();
 		joybutton=FindObjectOfType<FixedJoyController>();
 		rigidbody=GetComponent<Rigidbody>();
@@ -60,7 +62,7 @@ public class Tankcontrller : MonoSingleton<Tankcontrller> {
 	}
 	private void EngineAudio()
 	{
-		if(Mathf.Abs(vertical)<0.1f && Mathf.Abs(vertical)<0.1f)
+		if(Mathf.Abs(vertical)<0.1f && Mathf.Abs(horizontal)<0.1f)
 		{
 			if(tankMovementAudio.clip == tankDrivingAudio)
 			{

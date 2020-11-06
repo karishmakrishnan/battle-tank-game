@@ -13,8 +13,8 @@ public class EnemyTankHealth : MonoBehaviour
     private GameObject tankExplosion;
     private float MaxHealth;
     
-    private Color highHealthColor=Color.green;
-    private Color lowHealthColor=Color.red;
+    private Color highHealthColor;
+    private Color lowHealthColor;
     private float enemyDamage;
     private AudioSource explosionAudio;
     private ParticleSystem explosionParticle;
@@ -27,11 +27,7 @@ public class EnemyTankHealth : MonoBehaviour
     }
     private void Start()
     {
-        MaxHealth=tankEnemyData.EnemyMaxHealth;
-        // lowHealthColor=tankEnemyData.LowHealthColor;
-        // highHealthColor=tankEnemyData.HighHealthColor;
-        enemyDamage=tankEnemyData.EnemyDamageTaken;
-        Debug.Log("low health color"+MaxHealth);
+        
     }
     private void OnEnable()
     {
@@ -51,7 +47,10 @@ public class EnemyTankHealth : MonoBehaviour
     }
     private void SetHealthUI()
     {
+        lowHealthColor=tankEnemyData.LowHealthColor;
+        highHealthColor=tankEnemyData.HighHealthColor;
         healthSlider.value=currentHealth;
+        MaxHealth=tankEnemyData.EnemyMaxHealth;
         healthFillImage.color=Color.Lerp(lowHealthColor,highHealthColor,currentHealth/MaxHealth);
     }
     private void EnemyDead()
