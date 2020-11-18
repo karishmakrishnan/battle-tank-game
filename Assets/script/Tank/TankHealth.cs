@@ -24,7 +24,7 @@ public class TankHealth : MonoBehaviour
     private void Awake()
     {
         explosionParticle=Instantiate(ExplosionPrefab).GetComponent<ParticleSystem>();
-        //explosionAudio=explosionParticle.GetComponents<AudioSource>();
+        //explosionAudio=GetComponents<AudioSource>();
         explosionParticle.gameObject.SetActive(false);
     }
     private void OnEnable()
@@ -53,7 +53,7 @@ public class TankHealth : MonoBehaviour
         explosionParticle.transform.position=transform.position;
         explosionParticle.gameObject.SetActive(true);
         explosionParticle.Play();
-        explosionAudio.Play();
+        //explosionAudio.Play();
         gameObject.SetActive(false);
     }
 }

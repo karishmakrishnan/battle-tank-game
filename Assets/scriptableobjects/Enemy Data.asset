@@ -16,4 +16,4 @@ MonoBehaviour:
   enemyDamageTaken: 10
   payRollSpeed: 12
   lowHealthColor: {r: 0, g: 1, b: 0, a: 1}
-  highHealthColor: {r: 1, g: 0, b: 0, a: 1}
+  highHealthColor: {r: 0.990566, g: 0.076055735, b: 0.042052314, a: 1}

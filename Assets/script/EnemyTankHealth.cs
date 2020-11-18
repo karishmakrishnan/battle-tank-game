@@ -38,7 +38,9 @@ public class EnemyTankHealth : MonoBehaviour
     }
     public void TakeDamage(float enemyDamage)
     {
+        enemyDamage=10f;
         currentHealth -=enemyDamage;
+        Debug.Log("current health="+currentHealth);
         SetHealthUI();
         if(currentHealth<=0f && !IsDead)
         {
@@ -59,7 +61,7 @@ public class EnemyTankHealth : MonoBehaviour
         explosionParticle.transform.position=transform.position;
         explosionParticle.gameObject.SetActive(true);
         explosionParticle.Play();
-        explosionAudio.Play();
+        //explosionAudio.Play();
         gameObject.SetActive(false);
     }
 
