@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
+using System.Collections;
 public class EnemyTankHealth : MonoBehaviour
 {
     [SerializeField]
@@ -24,10 +25,6 @@ public class EnemyTankHealth : MonoBehaviour
          explosionParticle=Instantiate(tankExplosion).GetComponent<ParticleSystem>();
          //explosionAudio=explosionParticle.GetComponents<AudioSource>();
          explosionParticle.gameObject.SetActive(false);
-    }
-    private void Start()
-    {
-        
     }
     private void OnEnable()
     {
@@ -62,7 +59,14 @@ public class EnemyTankHealth : MonoBehaviour
         explosionParticle.gameObject.SetActive(true);
         explosionParticle.Play();
         //explosionAudio.Play();
+        // gameObject.SetActive(false);
+        StartCoroutine(Wait());
+    }
+    IEnumerator Wait()
+    {
+        yield return new WaitForSeconds(1f);
         gameObject.SetActive(false);
     }
+       
 
 }
