@@ -64,7 +64,7 @@ public class EnemyTankHealth : MonoBehaviour
     }
     IEnumerator Wait()
     {
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(0.2f);
         gameObject.SetActive(false);
     }
        
