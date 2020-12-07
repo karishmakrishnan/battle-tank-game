@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class Tankcontrller : MonoSingleton<Tankcontrller>
+public class Tankcontrller : MonoSingleton<Tankcontrller>,TankInterface
  {	
 	[SerializeField]
 	private float MoveSpeed;
@@ -31,6 +31,7 @@ public class Tankcontrller : MonoSingleton<Tankcontrller>
 		JoyStickMove();
 		TankMovement();
 		TankRotate();
+		TankDamge();
 	}
 	void Update ()
 	{
@@ -38,13 +39,13 @@ public class Tankcontrller : MonoSingleton<Tankcontrller>
 		horizontal=Input.GetAxis("HorizontalUI");
 		TankMovement();
 		EngineAudio();
+		
 	}
 	private void Start()
 	{
 		audioOriginalPitch=tankMovementAudio.pitch;
 	}
 	//collision detection of tank with other game object
-	// void OnCollisionEnter(Collision collision)
 	// {
 	// 	Debug.Log("Collided with"+collision.gameObject.name);
 	// }
@@ -86,5 +87,19 @@ public class Tankcontrller : MonoSingleton<Tankcontrller>
 	{
 		rigidbody.velocity= new Vector3(joystick.Horizontal*5f,rigidbody.velocity.y,joystick.Vertical*5f);
 	}
-	
+
+    public void TankDamge()
+    {
+        // Collision collision;
+		// Debug.Log("Collided with"+ collision.gameObject.name);
+		// Debug .Log("hello");
+		Vector3 center=transform.position;
+		float radius=0.2f;
+		Collider[] hitColliders=Physics.OverlapSphere(center,radius);
+		foreach(var hitCollider in hitColliders)
+		{
+			// hitCollider.SendMessage("Add damage");
+			Debug.Log("Collide with "+hitCollider.gameObject.name);
+		}
+    }
 }
